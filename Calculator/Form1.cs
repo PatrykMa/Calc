@@ -20,14 +20,16 @@ namespace Calculator
         private String coma;
         private bool lastequal=false;
         private string oper="";
+        private bool block = false;
         public Form1()
         {
             InitializeComponent();
-            coma = ".";//Convert.ToString(CultureInfo.CurrentUICulture.NumberFormat.NumberDecimalSeparator);
+            coma = Convert.ToString(CultureInfo.CurrentUICulture.NumberFormat.NumberDecimalSeparator);
             b_separator.Text = coma;
             setText("0");
         }
         private void addNumber(object sender, EventArgs e){
+            if (block) return;
             if(!writed){
                 setText( "");
             }
@@ -72,6 +74,7 @@ namespace Calculator
         }
         private void setOperator(object sender, EventArgs e) {
 
+            if (block) return;
             right = l_text.Text;
             Button button = sender as Button;
             String znakGuzika = "";
@@ -124,6 +127,8 @@ namespace Calculator
 
             try
             {
+                left = left.Replace(coma, ".");
+                right = right.Replace(coma, ".");
                 if (oper == "+")
                 {
                     left = (double.Parse(left, System.Globalization.CultureInfo.InvariantCulture) + double.Parse(right, System.Globalization.CultureInfo.InvariantCulture)).ToString();
@@ -138,9 +143,15 @@ namespace Calculator
                 }
                 else if (oper == "/")
                 {
-                    left = (double.Parse(left, System.Globalization.CultureInfo.InvariantCulture) / double.Parse(right, System.Globalization.CultureInfo.InvariantCulture)).ToString();
+                    if (double.Parse(right, System.Globalization.CultureInfo.InvariantCulture) == 0.0){
+                        left = "NIe można dzielic przez 0";
+                        block = true;
+                        }
+                    else 
+                        left = (double.Parse(left, System.Globalization.CultureInfo.InvariantCulture) / double.Parse(right, System.Globalization.CultureInfo.InvariantCulture)).ToString();
                 }
-                left = left.Replace(",", ".");
+                left = left.Replace(".",coma);
+                right = right.Replace(".",coma);
                 setText(left);
             }
             catch
@@ -153,6 +164,7 @@ namespace Calculator
 
         private void equal(object sender, EventArgs e)
         {
+            if (block) return;
 
             if (writed && left != ""&&!lastequal)
                 right = l_text.Text;
@@ -178,12 +190,13 @@ namespace Calculator
 
         private void addComa(object sender, EventArgs e)
         {
-            if (!containComa(l_text.Text)&&!lastequal)
+            if (block) return;
+            if (!containComa(l_text.Text)&&writed)
             {
                 setText(l_text.Text + coma);
                 writed = true;
             }
-            else if (lastequal)
+            else if (!writed)
             {
                 setText("0" + coma);
                 writed = true;
@@ -207,6 +220,7 @@ namespace Calculator
             oper = "";
             setText("0");
             l_upper.Text = "";
+            block = false;
         }
 
         private void clear(object sender, EventArgs e)
@@ -218,11 +232,11 @@ namespace Calculator
         {
             if (text.Length < 22)
             {
-                l_text.Font = new Font("Arial", 15);
+                l_text.Font = new Font("Arial", 13);
             }
             else
             {
-                l_text.Font = new Font("Arial", 11);
+                l_text.Font = new Font("Arial", 10);
             }
 
             l_text.Text = text;

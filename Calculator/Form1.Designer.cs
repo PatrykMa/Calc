@@ -282,7 +282,7 @@
             this.Controls.Add(this.b_number2);
             this.Controls.Add(this.b_number1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Kalkulator";
             this.ResumeLayout(false);
 
         }
