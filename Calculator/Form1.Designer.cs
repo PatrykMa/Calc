@@ -46,11 +46,13 @@
             this.b_divide = new System.Windows.Forms.Button();
             this.b_del = new System.Windows.Forms.Button();
             this.l_text = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.l_upper = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // b_number1
             // 
-            this.b_number1.Location = new System.Drawing.Point(15, 163);
+            this.b_number1.Location = new System.Drawing.Point(15, 162);
             this.b_number1.Name = "b_number1";
             this.b_number1.Size = new System.Drawing.Size(42, 42);
             this.b_number1.TabIndex = 0;
@@ -140,7 +142,7 @@
             // 
             // b_number0
             // 
-            this.b_number0.Location = new System.Drawing.Point(16, 211);
+            this.b_number0.Location = new System.Drawing.Point(15, 211);
             this.b_number0.Name = "b_number0";
             this.b_number0.Size = new System.Drawing.Size(89, 42);
             this.b_number0.TabIndex = 9;
@@ -175,7 +177,7 @@
             this.b_plus.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.b_plus.Location = new System.Drawing.Point(159, 162);
             this.b_plus.Name = "b_plus";
-            this.b_plus.Size = new System.Drawing.Size(89, 42);
+            this.b_plus.Size = new System.Drawing.Size(42, 42);
             this.b_plus.TabIndex = 12;
             this.b_plus.Text = "+";
             this.b_plus.UseVisualStyleBackColor = true;
@@ -184,7 +186,7 @@
             // b_minus
             // 
             this.b_minus.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.b_minus.Location = new System.Drawing.Point(159, 114);
+            this.b_minus.Location = new System.Drawing.Point(206, 162);
             this.b_minus.Name = "b_minus";
             this.b_minus.Size = new System.Drawing.Size(42, 42);
             this.b_minus.TabIndex = 13;
@@ -195,7 +197,7 @@
             // b_multiple
             // 
             this.b_multiple.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.b_multiple.Location = new System.Drawing.Point(159, 66);
+            this.b_multiple.Location = new System.Drawing.Point(159, 114);
             this.b_multiple.Name = "b_multiple";
             this.b_multiple.Size = new System.Drawing.Size(42, 42);
             this.b_multiple.TabIndex = 14;
@@ -206,7 +208,7 @@
             // b_divide
             // 
             this.b_divide.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.b_divide.Location = new System.Drawing.Point(206, 111);
+            this.b_divide.Location = new System.Drawing.Point(206, 114);
             this.b_divide.Name = "b_divide";
             this.b_divide.Size = new System.Drawing.Size(42, 42);
             this.b_divide.TabIndex = 15;
@@ -221,25 +223,46 @@
             this.b_del.Name = "b_del";
             this.b_del.Size = new System.Drawing.Size(42, 42);
             this.b_del.TabIndex = 16;
-            this.b_del.Text = "del";
+            this.b_del.Text = "D";
             this.b_del.UseVisualStyleBackColor = true;
             this.b_del.Click += new System.EventHandler(this.deleteLastNumber);
             // 
             // l_text
             // 
             this.l_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.l_text.Location = new System.Drawing.Point(15, 21);
+            this.l_text.Location = new System.Drawing.Point(15, 28);
             this.l_text.Name = "l_text";
-            this.l_text.Size = new System.Drawing.Size(233, 42);
+            this.l_text.Size = new System.Drawing.Size(233, 35);
             this.l_text.TabIndex = 17;
-            this.l_text.Text = "0";
             this.l_text.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button1.Location = new System.Drawing.Point(158, 66);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(42, 42);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "C";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.clear);
+            // 
+            // l_upper
+            // 
+            this.l_upper.Location = new System.Drawing.Point(148, 9);
+            this.l_upper.Name = "l_upper";
+            this.l_upper.Size = new System.Drawing.Size(100, 23);
+            this.l_upper.TabIndex = 19;
+            this.l_upper.Text = " ";
+            this.l_upper.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(266, 274);
+            this.Controls.Add(this.l_upper);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.l_text);
             this.Controls.Add(this.b_del);
             this.Controls.Add(this.b_divide);
@@ -284,6 +307,8 @@
         private System.Windows.Forms.Button b_divide;
         private System.Windows.Forms.Button b_del;
         private System.Windows.Forms.Label l_text;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label l_upper;
     }
 }
 

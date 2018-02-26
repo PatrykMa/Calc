@@ -25,34 +25,35 @@ namespace Calculator
             InitializeComponent();
             coma = ".";//Convert.ToString(CultureInfo.CurrentUICulture.NumberFormat.NumberDecimalSeparator);
             b_separator.Text = coma;
+            setText("0");
         }
         private void addNumber(object sender, EventArgs e){
             if(!writed){
-                l_text.Text = "";
+                setText( "");
             }
             Button button = sender as Button;
                 if (button != null){
                     if (l_text.Text == "0"){
-                        l_text.Text = button.Text;
+                        setText( button.Text);
                     }
                     else{
                         if (containComa(l_text.Text) && l_text.Text.Length<16)
                         {
-                            l_text.Text += button.Text;
+                            setText(l_text.Text + button.Text);
                         }
                         else if (!containComa(l_text.Text) && l_text.Text.Length < 15)
                         {
-                            l_text.Text += button.Text;
+                            setText(l_text.Text + button.Text);
                         }
-                    }
-                    writed = true;
+                    }       
                     if (lastequal)
                     {
                        left = l_text.Text;
                        init = false;
                     }
                 }
-                lastequal = false;
+               // lastequal = false;
+                writed = true;
                
         }
         private void deleteLastNumber(object sender, EventArgs e){
@@ -64,7 +65,7 @@ namespace Calculator
                 }
                 else
                 {
-                    l_text.Text = "0";
+                    setText( "0");
                 }
             }
 
@@ -73,22 +74,39 @@ namespace Calculator
 
             right = l_text.Text;
             Button button = sender as Button;
-           
+            String znakGuzika = "";
+            if (button != null)
+                znakGuzika = button.Text;
+
             if (!init)
             {
                 init = true;
                 left = l_text.Text;
+                addTextToUpper(l_text.Text );   
+                addTextToUpper(znakGuzika);
+               
             }
             else
             {
                 if (writed)
                 {
+                    addTextToUpper(l_text.Text+znakGuzika);
                     calculate();
                 }
+                else
+                {
+                    if(lastequal)
+                        addTextToUpper(l_text.Text);
+                    addTextToUpper(znakGuzika);
+                }
+                
             }
-            if (button != null) {
-                oper = button.Text;
-            }
+
+            
+            oper = znakGuzika;          
+          
+
+
 
             writed = false;
             right = l_text.Text;
@@ -103,10 +121,12 @@ namespace Calculator
             {
                 right = l_text.Text;
             }
-            
+
+            try
+            {
                 if (oper == "+")
                 {
-                    left = (double.Parse(left, CultureInfo.InvariantCulture.NumberFormat) + double.Parse(right, CultureInfo.InvariantCulture.NumberFormat)).ToString();
+                    left = (double.Parse(left, System.Globalization.CultureInfo.InvariantCulture) + double.Parse(right, System.Globalization.CultureInfo.InvariantCulture)).ToString();
                 }
                 else if (oper == "-")
                 {
@@ -116,37 +136,56 @@ namespace Calculator
                 {
                     left = (double.Parse(left, System.Globalization.CultureInfo.InvariantCulture) * double.Parse(right, System.Globalization.CultureInfo.InvariantCulture)).ToString();
                 }
-                else if (oper == "/"&& right!="0")
+                else if (oper == "/")
                 {
                     left = (double.Parse(left, System.Globalization.CultureInfo.InvariantCulture) / double.Parse(right, System.Globalization.CultureInfo.InvariantCulture)).ToString();
                 }
-                left=left.Replace(",", ".");
-                l_text.Text = left;
+                left = left.Replace(",", ".");
+                setText(left);
+            }
+            catch
+            {
+                restart();
+            }
            
 
         }
 
         private void equal(object sender, EventArgs e)
         {
-           
+
+            if (writed && left != ""&&!lastequal)
+                right = l_text.Text;
             if(!writed)
             {
                 left=l_text.Text;
             }
-
-            if (right!="")
+            else
             {
+                lastequal = true;
+            }
+
+            if (right!="")            
+            {
+                
                 calculate();
                 writed = false;
+                
             }
             lastequal = true;
+            l_upper.Text = "";
         }
 
         private void addComa(object sender, EventArgs e)
         {
-            if (!containComa(l_text.Text))
+            if (!containComa(l_text.Text)&&!lastequal)
             {
-                l_text.Text+= coma;
+                setText(l_text.Text + coma);
+                writed = true;
+            }
+            else if (lastequal)
+            {
+                setText("0" + coma);
                 writed = true;
             }
 
@@ -157,7 +196,48 @@ namespace Calculator
             return napis.Contains(coma);       
 
         }
+        private void restart()
+        {
 
+            left = "";
+            right = "";
+            init = false;
+            writed = false;
+            lastequal = false;
+            oper = "";
+            setText("0");
+            l_upper.Text = "";
+        }
+
+        private void clear(object sender, EventArgs e)
+        {
+            restart();
+        }
+
+        private void setText(String text)
+        {
+            if (text.Length < 22)
+            {
+                l_text.Font = new Font("Arial", 15);
+            }
+            else
+            {
+                l_text.Font = new Font("Arial", 11);
+            }
+
+            l_text.Text = text;
+        }
+
+        private void addTextToUpper(String napis)
+        {
+            
+            int n=l_upper.Text.Length - 1;
+            if(n>=0)
+                if ((napis == "+" || napis == "/" || napis == "*" || napis == "-") && (l_upper.Text[n]=='+'||l_upper.Text[n]=='/'||l_upper.Text[n]=='*'||l_upper.Text[n]=='-' ))
+                    l_upper.Text = l_upper.Text.Remove(l_upper.Text.Length - 1);
+            l_upper.Text += napis;
+
+        }
 
 
     }
