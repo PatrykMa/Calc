@@ -248,9 +248,15 @@ namespace Calculator
             int n=l_upper.Text.Length - 1;
             if(n>=0)
                 if ((napis == "+" || napis == "/" || napis == "*" || napis == "-") && (l_upper.Text[n]=='+'||l_upper.Text[n]=='/'||l_upper.Text[n]=='*'||l_upper.Text[n]=='-' ))
-                    l_upper.Text = l_upper.Text.Remove(l_upper.Text.Length - 1);
+                    l_upper.Text = l_upper.Text.Remove(l_upper.Text.Length - 1);          
             l_upper.Text += napis;
 
+            if(l_upper.Text.Length>30)
+            {
+                l_upper.Text = "<" + l_upper.Text.Substring(l_upper.Text.Length-29,29);
+                
+            }         
+           
         }
 
 

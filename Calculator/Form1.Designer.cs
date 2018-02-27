@@ -249,11 +249,10 @@
             // 
             // l_upper
             // 
-            this.l_upper.Location = new System.Drawing.Point(148, 9);
+            this.l_upper.Location = new System.Drawing.Point(57, 9);
             this.l_upper.Name = "l_upper";
-            this.l_upper.Size = new System.Drawing.Size(100, 23);
+            this.l_upper.Size = new System.Drawing.Size(191, 23);
             this.l_upper.TabIndex = 19;
-            this.l_upper.Text = " ";
             this.l_upper.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Form1
